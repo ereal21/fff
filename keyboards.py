@@ -3,9 +3,10 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from config import (
     SUPPORT_USERNAME,
     DEFAULT_CURRENCY,
-    PACKAGES,
     RDP_PACKAGES,
-    UPGRADE_FULL_PRICE,
+    PACKAGE_ORDER,
+    STATUS_TO_PACKAGE,
+    get_package_price,
 )
 from texts import T
 from typing import Optional, List, Tuple
@@ -84,22 +85,30 @@ def setup_complete_keyboard(lang: str):
 def purchase_keyboard(lang: str, status: str):
     cur = DEFAULT_CURRENCY
     kb = InlineKeyboardMarkup(row_width=1)
-    if status != "Middle Tier":
+
+    current_package = STATUS_TO_PACKAGE.get(status)
+    try:
+        current_index = PACKAGE_ORDER.index(current_package) if current_package else -1
+    except ValueError:
+        current_index = -1
+
+    label_map = {
+        "template": "purchase_template",
+        "semi": "purchase_semi",
+        "full": "purchase_full",
+    }
+
+    for idx, package in enumerate(PACKAGE_ORDER):
+        if idx <= current_index:
+            continue
+        price = get_package_price(package, status)
         kb.add(
             InlineKeyboardButton(
-                T[lang]["purchase_template"].format(
-                    price=PACKAGES["template"], cur=cur
-                ),
-                callback_data="purchase:template",
+                T[lang][label_map[package]].format(price=price, cur=cur),
+                callback_data=f"purchase:{package}",
             )
         )
-    price_full = UPGRADE_FULL_PRICE if status == "Middle Tier" else PACKAGES["full"]
-    kb.add(
-        InlineKeyboardButton(
-            T[lang]["purchase_full"].format(price=price_full, cur=cur),
-            callback_data="purchase:full",
-        )
-    )
+
     kb.add(InlineKeyboardButton(T[lang]["back"], callback_data="back"))
     return kb
 

@@ -16,6 +16,7 @@ T: Dict[str, Dict[str, str]] = {
         "menu_language": "🌐 Language",
         "purchase_title": "🛍️ *Choose a package:*",
         "purchase_template": "📦 Template bot ({price} {cur})",
+        "purchase_semi": "⚡ Semi-service bot ({price} {cur})",
         "purchase_full": "🚀 Full-service bot ({price} {cur})",
         "desc_template": (
             "🟢 *Template Bot*\n"
@@ -25,6 +26,14 @@ T: Dict[str, Dict[str, str]] = {
             "• 🗒 *Discount codes*\n"
             "• 📣 *Mass messaging*\n"
             "• 👥 *User stats & management*\n\n"
+            "🕘 *Runs 24/7 with no extra fees* (hosting: 10 EUR/month)."
+        ),
+        "desc_semi": (
+            "🟡 *Semi-Service Bot*\n"
+            "• ⚙️ *Real-time feature adjustments*\n"
+            "• 🔄 *Regular updates included*\n"
+            "• ➕ *Add one new custom feature every month*\n"
+            "• 📊 *Advanced shop controls*\n\n"
             "🕘 *Runs 24/7 with no extra fees* (hosting: 10 EUR/month)."
         ),
         "desc_full": (
@@ -50,7 +59,7 @@ T: Dict[str, Dict[str, str]] = {
         "pay_with_balance": "💳 Pay with balance",
         "insufficient_balance": "❌ Insufficient balance. Please top up.",
         "purchase_success": "✅ Payment received! Go to *Config* to set up your bot.",
-        "purchase_unavailable": "✅ You already own the full package.",
+        "purchase_unavailable": "✅ You already own this package or a higher tier.",
         "config_first_time": (
             "🎉 *Welcome to settings!*\n"
             "It's your first time here. Tap *Set Up* below to configure your bot or contact support."
@@ -153,6 +162,7 @@ T: Dict[str, Dict[str, str]] = {
         "menu_language": "🌐 Язык",
         "purchase_title": "🛍️ *Выберите пакет:*",
         "purchase_template": "📦 Шаблон-бот ({price} {cur})",
+        "purchase_semi": "⚡ Бот с частичным сервисом ({price} {cur})",
         "purchase_full": "🚀 Полный сервис-бот ({price} {cur})",
         "desc_template": (
             "🟢 *Шаблон-бот*\n"
@@ -162,6 +172,14 @@ T: Dict[str, Dict[str, str]] = {
             "• 🗒 *Промокоды*\n"
             "• 📣 *Рассылки*\n"
             "• 👥 *Статистика и управление пользователями*\n\n"
+            "🕘 *Работает 24/7 без доп. оплат* (хостинг: 10 EUR/мес)."
+        ),
+        "desc_semi": (
+            "🟡 *Бот с частичным сервисом*\n"
+            "• ⚙️ *Меняйте функции в реальном времени*\n"
+            "• 🔄 *Регулярные обновления включены*\n"
+            "• ➕ *Добавление одной новой функции каждый месяц*\n"
+            "• 📊 *Расширенные инструменты управления*\n\n"
             "🕘 *Работает 24/7 без доп. оплат* (хостинг: 10 EUR/мес)."
         ),
         "desc_full": (
@@ -187,7 +205,7 @@ T: Dict[str, Dict[str, str]] = {
         "pay_with_balance": "💳 Оплатить с баланса",
         "insufficient_balance": "❌ Недостаточно средств. Пополните баланс.",
         "purchase_success": "✅ Оплата получена! Перейдите в *Настройки*, чтобы настроить бота.",
-        "purchase_unavailable": "✅ Вы уже приобрели полный пакет.",
+        "purchase_unavailable": "✅ Этот пакет уже приобретён или у вас есть более высокий уровень.",
         "config_first_time": (
             "🎉 *Добро пожаловать в настройки!*\n"
             "Вы здесь впервые. Нажмите *Настроить*, чтобы сконфигурировать бота или обратитесь в поддержку."
@@ -290,6 +308,7 @@ T: Dict[str, Dict[str, str]] = {
         "menu_language": "🌐 Kalba",
         "purchase_title": "🛍️ *Pasirinkite paketą:*",
         "purchase_template": "📦 Šabloninis botas ({price} {cur})",
+        "purchase_semi": "⚡ Dalinio aptarnavimo botas ({price} {cur})",
         "purchase_full": "🚀 Pilno aptarnavimo botas ({price} {cur})",
         "desc_template": (
             "🟢 *Šabloninis botas*\n"
@@ -299,6 +318,14 @@ T: Dict[str, Dict[str, str]] = {
             "• 🗒 *Nuolaidų kodai*\n"
             "• 📣 *Masiniai pranešimai*\n"
             "• 👥 *Vartotojų statistika ir valdymas*\n\n"
+            "🕘 *Veikia 24/7 be papildomų mokesčių* (hostingas: 10 EUR/mėn)."
+        ),
+        "desc_semi": (
+            "🟡 *Dalinio aptarnavimo botas*\n"
+            "• ⚙️ *Keiskite funkcijas realiu laiku*\n"
+            "• 🔄 *Reguliarūs atnaujinimai įskaičiuoti*\n"
+            "• ➕ *Kiekvieną mėnesį pridėkite po vieną naują funkciją*\n"
+            "• 📊 *Pažangūs parduotuvės įrankiai*\n\n"
             "🕘 *Veikia 24/7 be papildomų mokesčių* (hostingas: 10 EUR/mėn)."
         ),
         "desc_full": (
@@ -324,7 +351,7 @@ T: Dict[str, Dict[str, str]] = {
         "pay_with_balance": "💳 Mokėti iš balanso",
         "insufficient_balance": "❌ Nepakanka lėšų. Papildykite balansą.",
         "purchase_success": "✅ Mokėjimas gautas! Eikite į *Nustatymai* ir sukonfigūruokite botą.",
-        "purchase_unavailable": "✅ Jau turite pilną paketą.",
+        "purchase_unavailable": "✅ Jūs jau turite šį paketą arba aukštesnį lygį.",
         "config_first_time": (
             "🎉 *Sveiki atvykę į nustatymus!*\n"
             "Jūs čia pirmą kartą. Paspauskite *Nustatyti*, kad sukonfigūruotumėte botą arba susisiekite su pagalba."

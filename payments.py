@@ -7,6 +7,7 @@ from config import (
     NOWPAYMENTS_IPN_URL,
     DEFAULT_CURRENCY,
     ADMIN_ID,
+    PACKAGE_STATUSES,
 )
 from texts import T
 from database import Database
@@ -62,7 +63,7 @@ async def ipn_handler(request: web.Request):
     except ValueError:
         return web.Response(text="OK")
 
-    tier_map = {"template": "Middle Tier", "full": "High Tier"}
+    tier_map = PACKAGE_STATUSES
     rdp_map = {"rdp1": "1 month", "rdp2": "2 months", "rdp3": "3 months"}
     new_status = tier_map.get(item)
     if new_status:

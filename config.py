@@ -28,12 +28,48 @@ STEP7_IMAGE = os.getenv("STEP7_IMAGE", "").strip()
 
 # Package prices in DEFAULT_CURRENCY
 PACKAGES = {
-    "template": 299,
-    "full": 999,
+    "template": 300,
+    "semi": 500,
+    "full": 800,
 }
 
-# Discounted price for upgrading from template to full package
-UPGRADE_FULL_PRICE = 699
+# Package ordering and status mapping
+PACKAGE_ORDER = ["template", "semi", "full"]
+PACKAGE_STATUSES = {
+    "template": "Middle Tier",
+    "semi": "Semi Tier",
+    "full": "High Tier",
+}
+STATUS_TO_PACKAGE = {status: package for package, status in PACKAGE_STATUSES.items()}
+
+# Upgrade price differences between tiers
+UPGRADE_PRICES = {
+    ("template", "semi"): PACKAGES["semi"] - PACKAGES["template"],
+    ("template", "full"): PACKAGES["full"] - PACKAGES["template"],
+    ("semi", "full"): PACKAGES["full"] - PACKAGES["semi"],
+}
+
+
+def get_package_price(item: str, status: str) -> float:
+    """Return the payable amount for a package based on current status."""
+
+    if item not in PACKAGES:
+        raise KeyError(f"Unknown package: {item}")
+
+    current_package = STATUS_TO_PACKAGE.get(status)
+    if not current_package:
+        return PACKAGES[item]
+
+    try:
+        current_index = PACKAGE_ORDER.index(current_package)
+        target_index = PACKAGE_ORDER.index(item)
+    except ValueError:
+        return PACKAGES[item]
+
+    if target_index > current_index:
+        return UPGRADE_PRICES.get((current_package, item), PACKAGES[item])
+
+    raise ValueError("Package not available for the current status")
 
 # RDP package prices in DEFAULT_CURRENCY
 RDP_PACKAGES = {
