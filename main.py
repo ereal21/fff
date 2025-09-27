@@ -12,9 +12,7 @@ from aiohttp import web
 import qrcode
 from config import (
     BOT_TOKEN,
-    PACKAGES,
     RDP_PACKAGES,
-    UPGRADE_FULL_PRICE,
     ADMIN_ID,
     STEP1_IMAGE,
     STEP2_IMAGE,
@@ -23,6 +21,8 @@ from config import (
     STEP5_IMAGE,
     STEP6_IMAGE,
     STEP7_IMAGE,
+    PACKAGE_STATUSES,
+    get_package_price,
 )
 from database import Database
 from keyboards import (
@@ -36,6 +36,11 @@ from keyboards import (
     admin_panel_keyboard,
     user_profile_keyboard,
     config_keyboard,
+    functions_menu_keyboard,
+    functions_protection_keyboard,
+    functions_admin_keyboard,
+    functions_user_keyboard,
+    functions_payments_keyboard,
     rdp_keyboard,
     setup_next_keyboard,
     setup_cancel_keyboard,
@@ -57,6 +62,7 @@ dp = Dispatcher(bot, storage=MemoryStorage())
 history = defaultdict(list)
 qr_messages = {}
 init_payments(bot, db, qr_messages)
+FULL_STATUS = PACKAGE_STATUSES["full"]
 
 
 class AdminStates(StatesGroup):
@@ -118,7 +124,7 @@ async def cmd_start(message: types.Message):
         reply_markup=main_menu_keyboard(
             lang,
             is_admin=user.id == ADMIN_ID,
-            show_purchase=status != "High Tier",
+            show_purchase=status != FULL_STATUS,
         ),
     )
 
@@ -138,7 +144,7 @@ async def cb_set_language(call: types.CallbackQuery):
         reply_markup=main_menu_keyboard(
             lang,
             is_admin=user.id == ADMIN_ID,
-            show_purchase=status != "High Tier",
+            show_purchase=status != FULL_STATUS,
         ),
     )
 
@@ -156,7 +162,7 @@ async def cb_purchase(call: types.CallbackQuery):
     lang = db.get_language(user_id)
     history[user_id].append((call.message.text or "", call.message.reply_markup))
     status = db.get_status(user_id)
-    if status == "High Tier":
+    if status == FULL_STATUS:
         await call.message.edit_text(
             T[lang]["purchase_unavailable"], reply_markup=back_to_menu(lang)
         )
@@ -185,6 +191,92 @@ async def cb_config(call: types.CallbackQuery):
         text = T[lang]["config_title"]
     setup_done = db.get_setup_done(call.from_user.id)
     await call.message.edit_text(text, reply_markup=config_keyboard(lang, setup_done))
+
+
+@dp.callback_query_handler(lambda c: c.data == "config:functions")
+async def cb_config_functions(call: types.CallbackQuery):
+    lang = db.get_language(call.from_user.id)
+    history[call.from_user.id].append((call.message.text or "", call.message.reply_markup))
+    await call.message.edit_text(
+        T[lang]["functions_title"], reply_markup=functions_menu_keyboard(lang)
+    )
+
+
+@dp.callback_query_handler(lambda c: c.data == "functions:protection")
+async def cb_functions_protection(call: types.CallbackQuery):
+    lang = db.get_language(call.from_user.id)
+    history[call.from_user.id].append((call.message.text or "", call.message.reply_markup))
+    await call.message.edit_text(
+        T[lang]["functions_protection_desc"],
+        reply_markup=functions_protection_keyboard(lang),
+    )
+
+
+@dp.callback_query_handler(lambda c: c.data == "functions:admin")
+async def cb_functions_admin(call: types.CallbackQuery):
+    lang = db.get_language(call.from_user.id)
+    history[call.from_user.id].append((call.message.text or "", call.message.reply_markup))
+    await call.message.edit_text(
+        T[lang]["functions_admin_desc"],
+        reply_markup=functions_admin_keyboard(lang),
+    )
+
+
+@dp.callback_query_handler(lambda c: c.data == "functions:user")
+async def cb_functions_user(call: types.CallbackQuery):
+    lang = db.get_language(call.from_user.id)
+    history[call.from_user.id].append((call.message.text or "", call.message.reply_markup))
+    await call.message.edit_text(
+        T[lang]["functions_user_desc"],
+        reply_markup=functions_user_keyboard(lang),
+    )
+
+
+@dp.callback_query_handler(lambda c: c.data == "functions:payments")
+async def cb_functions_payments(call: types.CallbackQuery):
+    lang = db.get_language(call.from_user.id)
+    history[call.from_user.id].append((call.message.text or "", call.message.reply_markup))
+    await call.message.edit_text(
+        T[lang]["functions_payments_desc"],
+        reply_markup=functions_payments_keyboard(lang),
+    )
+
+
+@dp.callback_query_handler(lambda c: c.data == "feature:anti_spam")
+async def cb_feature_anti_spam(call: types.CallbackQuery):
+    lang = db.get_language(call.from_user.id)
+    history[call.from_user.id].append((call.message.text or "", call.message.reply_markup))
+    await call.message.edit_text(
+        T[lang]["feature_anti_spam_desc"], reply_markup=back_to_menu(lang)
+    )
+
+
+@dp.callback_query_handler(lambda c: c.data == "feature:assistant_management")
+async def cb_feature_assistant(call: types.CallbackQuery):
+    lang = db.get_language(call.from_user.id)
+    history[call.from_user.id].append((call.message.text or "", call.message.reply_markup))
+    await call.message.edit_text(
+        T[lang]["feature_assistant_management_desc"], reply_markup=back_to_menu(lang)
+    )
+
+
+@dp.callback_query_handler(lambda c: c.data == "feature:user_levels")
+async def cb_feature_user_levels(call: types.CallbackQuery):
+    lang = db.get_language(call.from_user.id)
+    history[call.from_user.id].append((call.message.text or "", call.message.reply_markup))
+    await call.message.edit_text(
+        T[lang]["feature_user_levels_desc"], reply_markup=back_to_menu(lang)
+    )
+
+
+@dp.callback_query_handler(lambda c: c.data == "feature:stock_notifications")
+async def cb_feature_stock_notifications(call: types.CallbackQuery):
+    lang = db.get_language(call.from_user.id)
+    history[call.from_user.id].append((call.message.text or "", call.message.reply_markup))
+    await call.message.edit_text(
+        T[lang]["feature_stock_notifications_desc"],
+        reply_markup=back_to_menu(lang),
+    )
 
 
 @dp.callback_query_handler(lambda c: c.data == "config:rdp")
@@ -541,7 +633,7 @@ async def cb_topup_cancel(call: types.CallbackQuery, state: FSMContext):
             reply_markup=main_menu_keyboard(
                 lang,
                 is_admin=user_id == ADMIN_ID,
-                show_purchase=status != "High Tier",
+                show_purchase=status != FULL_STATUS,
             ),
         )
 
@@ -791,10 +883,12 @@ async def cb_purchase_item(call: types.CallbackQuery):
     lang = db.get_language(call.from_user.id)
     history[call.from_user.id].append((call.message.text or "", call.message.reply_markup))
     item = call.data.split(":")[1]
-    if item == "template":
-        msg = T[lang]["desc_template"]
-    else:
-        msg = T[lang]["desc_full"]
+    desc_map = {
+        "template": "desc_template",
+        "semi": "desc_semi",
+        "full": "desc_full",
+    }
+    msg = T[lang][desc_map.get(item, "desc_full")]
     await call.message.edit_text(msg, reply_markup=purchase_item_keyboard(lang, item))
 
 
@@ -817,15 +911,17 @@ async def cb_pay(call: types.CallbackQuery):
 
     status = db.get_status(user_id)
     if currency == "BAL":
-        if item == "full" and status == "Middle Tier":
-            price = UPGRADE_FULL_PRICE
-        else:
-            price = PACKAGES[item]
+        try:
+            price = get_package_price(item, status)
+        except (KeyError, ValueError):
+            await call.answer(T[lang]["purchase_unavailable"], show_alert=True)
+            return
+
         if db.deduct_balance(user_id, price):
-            tier_map = {"template": "Middle Tier", "full": "High Tier"}
-            new_status = tier_map.get(item)
-            if new_status:
+            new_status = PACKAGE_STATUSES.get(item)
+            if new_status and new_status != status:
                 db.set_status(user_id, new_status)
+                db.set_config_seen(user_id, False)
             await call.message.edit_text(
                 T[lang]["purchase_success"], reply_markup=back_to_menu(lang)
             )
@@ -848,10 +944,11 @@ async def cb_pay(call: types.CallbackQuery):
         order_id = f"{item}-{user_id}-{int(datetime.utcnow().timestamp())}"
         description = item
     else:
-        if item == "full" and status == "Middle Tier":
-            price = UPGRADE_FULL_PRICE
-        else:
-            price = PACKAGES[item]
+        try:
+            price = get_package_price(item, status)
+        except (KeyError, ValueError):
+            await call.answer(T[lang]["purchase_unavailable"], show_alert=True)
+            return
         order_id = f"{item}-{user_id}-{int(datetime.utcnow().timestamp())}"
         description = item
 
@@ -909,7 +1006,7 @@ async def cb_back(call: types.CallbackQuery):
             reply_markup=main_menu_keyboard(
                 lang,
                 is_admin=user_id == ADMIN_ID,
-                show_purchase=status != "High Tier",
+                show_purchase=status != FULL_STATUS,
             ),
         )
 
@@ -948,7 +1045,7 @@ async def cb_cancel(call: types.CallbackQuery):
             reply_markup=main_menu_keyboard(
                 lang,
                 is_admin=user_id == ADMIN_ID,
-                show_purchase=status != "High Tier",
+                show_purchase=status != FULL_STATUS,
             ),
         )
 
