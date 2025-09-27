@@ -52,6 +52,7 @@ def config_keyboard(lang: str, setup_done: bool):
         kb.add(InlineKeyboardButton(T[lang]["config_rdp"], callback_data="config:rdp"))
     else:
         kb.add(InlineKeyboardButton(T[lang]["config_setup"], callback_data="config:setup"))
+    kb.add(InlineKeyboardButton(T[lang]["config_functions"], callback_data="config:functions"))
     kb.add(
         InlineKeyboardButton(
             T[lang]["config_support"], url=f"https://t.me/{SUPPORT_USERNAME}"
@@ -59,6 +60,70 @@ def config_keyboard(lang: str, setup_done: bool):
     )
     kb.add(InlineKeyboardButton(T[lang]["back"], callback_data="back"))
     return kb
+
+
+def functions_menu_keyboard(lang: str):
+    kb = InlineKeyboardMarkup(row_width=1)
+    kb.add(
+        InlineKeyboardButton(
+            T[lang]["functions_protection"], callback_data="functions:protection"
+        )
+    )
+    kb.add(
+        InlineKeyboardButton(T[lang]["functions_admin"], callback_data="functions:admin")
+    )
+    kb.add(
+        InlineKeyboardButton(T[lang]["functions_user"], callback_data="functions:user")
+    )
+    kb.add(
+        InlineKeyboardButton(
+            T[lang]["functions_payments"], callback_data="functions:payments"
+        )
+    )
+    kb.add(InlineKeyboardButton(T[lang]["back"], callback_data="back"))
+    return kb
+
+
+def functions_protection_keyboard(lang: str):
+    return InlineKeyboardMarkup(row_width=1).add(
+        InlineKeyboardButton(
+            T[lang]["feature_anti_spam"], callback_data="feature:anti_spam"
+        ),
+        InlineKeyboardButton(T[lang]["back"], callback_data="back"),
+    )
+
+
+def functions_admin_keyboard(lang: str):
+    return InlineKeyboardMarkup(row_width=1).add(
+        InlineKeyboardButton(
+            T[lang]["feature_assistant_management"],
+            callback_data="feature:assistant_management",
+        ),
+        InlineKeyboardButton(T[lang]["back"], callback_data="back"),
+    )
+
+
+def functions_user_keyboard(lang: str):
+    kb = InlineKeyboardMarkup(row_width=1)
+    kb.add(
+        InlineKeyboardButton(
+            T[lang]["feature_user_levels"], callback_data="feature:user_levels"
+        )
+    )
+    kb.add(
+        InlineKeyboardButton(
+            T[lang]["feature_stock_notifications"],
+            callback_data="feature:stock_notifications",
+        )
+    )
+    kb.add(InlineKeyboardButton(T[lang]["back"], callback_data="back"))
+    return kb
+
+
+def functions_payments_keyboard(lang: str):
+    return InlineKeyboardMarkup(row_width=1).add(
+        InlineKeyboardButton(T[lang]["back"], callback_data="back"),
+    )
 
 
 def setup_next_keyboard(lang: str, next_cb: str):

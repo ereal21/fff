@@ -68,7 +68,40 @@ T: Dict[str, Dict[str, str]] = {
         "config_no_status": "🛑 *Purchase a bot to access settings.*",
         "config_setup": "🛠 Set Up",
         "config_rdp": "🖥 RDP",
+        "config_functions": "🧩 Functions",
         "config_support": "🆘 Support",
+        "functions_title": "🧩 *Choose a function category:*",
+        "functions_protection": "🛡 Protection & utilities",
+        "functions_admin": "🧑‍💼 Admin-side features",
+        "functions_user": "👥 User-side features",
+        "functions_payments": "💳 Payments",
+        "functions_protection_desc": "🛡 *Protection & utilities*\nPick a tool below to see what it covers.",
+        "functions_admin_desc": "🧑‍💼 *Admin-side features*\nTap an option to learn how it helps you run the shop.",
+        "functions_user_desc": "👥 *User-side features*\nChoose a feature to see the customer experience upgrades.",
+        "functions_payments_desc": (
+            "💳 *Payments*\n"
+            "Accept secure crypto payments via NOWPayments with automatic confirmations for SOL, USDT-TRC20, and XMR."
+        ),
+        "feature_anti_spam": "🛡 Anti-spam filter",
+        "feature_anti_spam_desc": (
+            "🛡 *Anti-spam filter*\n"
+            "Automatically blocks suspicious sign-ups, repeated requests, and flood attempts to keep your bot clean."
+        ),
+        "feature_assistant_management": "🤝 Assistant management",
+        "feature_assistant_management_desc": (
+            "🤝 *Assistant management*\n"
+            "Add or remove assistant accounts, assign roles, and delegate daily operations without sharing your main credentials."
+        ),
+        "feature_user_levels": "🎚 User levels",
+        "feature_user_levels_desc": (
+            "🎚 *User levels*\n"
+            "Segment shoppers into tiers, unlock special pricing or rewards, and track loyalty progress automatically."
+        ),
+        "feature_stock_notifications": "🔔 Stock notifications",
+        "feature_stock_notifications_desc": (
+            "🔔 *Stock notifications*\n"
+            "Alert users when items are back in stock or running low so they never miss a drop."
+        ),
         "coming_soon": "🚧 *This feature is disabled for now.*",
         "rdp_choose_package": "🖥 *Choose your RDP package:*",
         "rdp_1m": "1️⃣ 1 Month ({price} {cur})",
@@ -214,7 +247,46 @@ T: Dict[str, Dict[str, str]] = {
         "config_no_status": "🛑 *Чтобы получить доступ к настройкам, сначала приобретите бота.*",
         "config_setup": "🛠 Настроить",
         "config_rdp": "🖥 RDP",
+        "config_functions": "🧩 Функции",
         "config_support": "🆘 Поддержка",
+        "functions_title": "🧩 *Выберите категорию функций:*",
+        "functions_protection": "🛡 Защита и утилиты",
+        "functions_admin": "🧑‍💼 Функции для админа",
+        "functions_user": "👥 Функции для пользователей",
+        "functions_payments": "💳 Платежи",
+        "functions_protection_desc": "🛡 *Защита и утилиты*\nВыберите инструмент ниже, чтобы узнать подробности.",
+        "functions_admin_desc": (
+            "🧑‍💼 *Функции для админа*\n"
+            "Нажмите на пункт, чтобы узнать, как он помогает управлять магазином."
+        ),
+        "functions_user_desc": (
+            "👥 *Функции для пользователей*\n"
+            "Выберите функцию, чтобы увидеть улучшения для клиентов."
+        ),
+        "functions_payments_desc": (
+            "💳 *Платежи*\n"
+            "Принимайте безопасные криптоплатежи через NOWPayments с авто-подтверждением для SOL, USDT-TRC20 и XMR."
+        ),
+        "feature_anti_spam": "🛡 Антиспам-фильтр",
+        "feature_anti_spam_desc": (
+            "🛡 *Антиспам-фильтр*\n"
+            "Автоматически блокирует подозрительные регистрации, повторные запросы и флуд, чтобы бот оставался чистым."
+        ),
+        "feature_assistant_management": "🤝 Управление ассистентами",
+        "feature_assistant_management_desc": (
+            "🤝 *Управление ассистентами*\n"
+            "Добавляйте или удаляйте аккаунты помощников, назначайте роли и делегируйте задачи без передачи основных данных."
+        ),
+        "feature_user_levels": "🎚 Уровни пользователей",
+        "feature_user_levels_desc": (
+            "🎚 *Уровни пользователей*\n"
+            "Разделяйте покупателей на уровни, открывайте специальные цены и автоматически отслеживайте лояльность."
+        ),
+        "feature_stock_notifications": "🔔 Уведомления о наличии",
+        "feature_stock_notifications_desc": (
+            "🔔 *Уведомления о наличии*\n"
+            "Сообщайте пользователям, когда товары появляются снова или заканчиваются, чтобы они не пропускали новинки."
+        ),
         "coming_soon": "🚧 *Эта функция отключена.*",
         "rdp_choose_package": "🖥 *Выберите пакет RDP:*",
         "rdp_1m": "1️⃣ 1 месяц ({price} {cur})",
@@ -360,7 +432,46 @@ T: Dict[str, Dict[str, str]] = {
         "config_no_status": "🛑 *Norėdami pasiekti nustatymus, pirmiausia įsigykite botą.*",
         "config_setup": "🛠 Nustatyti",
         "config_rdp": "🖥 RDP",
+        "config_functions": "🧩 Funkcijos",
         "config_support": "🆘 Pagalba",
+        "functions_title": "🧩 *Pasirinkite funkcijų kategoriją:*",
+        "functions_protection": "🛡 Apsauga ir įrankiai",
+        "functions_admin": "🧑‍💼 Administratoriaus funkcijos",
+        "functions_user": "👥 Vartotojo funkcijos",
+        "functions_payments": "💳 Mokėjimai",
+        "functions_protection_desc": "🛡 *Apsauga ir įrankiai*\nPasirinkite įrankį ir sužinokite daugiau.",
+        "functions_admin_desc": (
+            "🧑‍💼 *Administratoriaus funkcijos*\n"
+            "Bakstelėkite punktą ir sužinokite, kaip jis padeda valdyti parduotuvę."
+        ),
+        "functions_user_desc": (
+            "👥 *Vartotojo funkcijos*\n"
+            "Pasirinkite funkciją ir pažiūrėkite, kokią patirtį gauna klientai."
+        ),
+        "functions_payments_desc": (
+            "💳 *Mokėjimai*\n"
+            "Priimkite saugius kriptomokėjimus per NOWPayments su automatiniu SOL, USDT-TRC20 ir XMR patvirtinimu."
+        ),
+        "feature_anti_spam": "🛡 Anti-spamo filtras",
+        "feature_anti_spam_desc": (
+            "🛡 *Anti-spamo filtras*\n"
+            "Automatiškai blokuoja įtartinus prisijungimus, pasikartojančias užklausas ir flood'ą, kad bot'as liktų švarus."
+        ),
+        "feature_assistant_management": "🤝 Asistentų valdymas",
+        "feature_assistant_management_desc": (
+            "🤝 *Asistentų valdymas*\n"
+            "Pridėkite ar pašalinkite asistentų paskyras, priskirkite roles ir deleguokite darbus neatskleisdami pagrindinių prisijungimų."
+        ),
+        "feature_user_levels": "🎚 Vartotojų lygiai",
+        "feature_user_levels_desc": (
+            "🎚 *Vartotojų lygiai*\n"
+            "Skirstykite pirkėjus į lygius, suteikite specialias kainas ir automatiškai sekite lojalumą."
+        ),
+        "feature_stock_notifications": "🔔 Atsargų pranešimai",
+        "feature_stock_notifications_desc": (
+            "🔔 *Atsargų pranešimai*\n"
+            "Praneškite vartotojams, kai prekės grįžta į sandėlį arba baigiasi, kad jie nepraleistų pasiūlymų."
+        ),
         "coming_soon": "🚧 *Ši funkcija išjungta.*",
         "rdp_choose_package": "🖥 *Pasirinkite RDP paketą:*",
         "rdp_1m": "1️⃣ 1 mėn. ({price} {cur})",
